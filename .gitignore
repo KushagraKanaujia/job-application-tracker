@@ -1,0 +1,37 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Thumbnails
+Thumbs.db
+
+# Browser data (we don't want to commit anyone's actual job applications)
+*.json.backup
+applications-backup/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+.cache/
+
+# Environment files
+.env
+.env.local
+
+# Package files (if we add build tools later)
+node_modules/
+dist/
+build/
