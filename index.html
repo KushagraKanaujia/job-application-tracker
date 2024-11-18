@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Job Application Tracker</h1>
+            <p class="subtitle">Keep track of all your job applications in one place</p>
+        </header>
+
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-number" id="totalApps">0</div>
+                <div class="stat-label">Total Applications</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pendingApps">0</div>
+                <div class="stat-label">Pending</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="interviewApps">0</div>
+                <div class="stat-label">Interview</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="offerApps">0</div>
+                <div class="stat-label">Offer</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="rejectedApps">0</div>
+                <div class="stat-label">Rejected</div>
+            </div>
+        </div>
+
+        <div class="add-section">
+            <h2>Add New Application</h2>
+            <form id="applicationForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="company">Company *</label>
+                        <input type="text" id="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="position">Position *</label>
+                        <input type="text" id="position" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" placeholder="e.g., NYC, Remote">
+                    </div>
+                    <div class="form-group">
+                        <label for="source">Source</label>
+                        <select id="source">
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="GitHub">GitHub</option>
+                            <option value="Company Website">Company Website</option>
+                            <option value="Indeed">Indeed</option>
+                            <option value="Referral">Referral</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status">
+                            <option value="Applied">Applied</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Interview Scheduled">Interview Scheduled</option>
+                            <option value="Interview Completed">Interview Completed</option>
+                            <option value="Offer">Offer</option>
+                            <option value="Rejected">Rejected</option>
+                            <option value="Withdrawn">Withdrawn</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="applicationUrl">Application URL</label>
+                        <input type="url" id="applicationUrl" placeholder="https://...">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea id="notes" rows="3" placeholder="Any additional notes..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Add Application</button>
+            </form>
+        </div>
+
+        <div class="filter-section">
+            <h2>Applications</h2>
+            <div class="filters">
+                <input type="text" id="searchInput" placeholder="Search by company or position...">
+                <select id="filterStatus">
+                    <option value="all">All Statuses</option>
+                    <option value="Applied">Applied</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Interview Scheduled">Interview Scheduled</option>
+                    <option value="Interview Completed">Interview Completed</option>
+                    <option value="Offer">Offer</option>
+                    <option value="Rejected">Rejected</option>
+                    <option value="Withdrawn">Withdrawn</option>
+                </select>
+                <select id="filterSource">
+                    <option value="all">All Sources</option>
+                    <option value="LinkedIn">LinkedIn</option>
+                    <option value="GitHub">GitHub</option>
+                    <option value="Company Website">Company Website</option>
+                    <option value="Indeed">Indeed</option>
+                    <option value="Referral">Referral</option>
+                    <option value="Other">Other</option>
+                </select>
+                <button id="exportBtn" class="btn-secondary">Export to CSV</button>
+            </div>
+        </div>
+
+        <div class="applications-list" id="applicationsList">
+            <!-- Applications will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Application</h2>
+            <form id="editForm">
+                <input type="hidden" id="editId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editCompany">Company *</label>
+                        <input type="text" id="editCompany" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editPosition">Position *</label>
+                        <input type="text" id="editPosition" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editLocation">Location</label>
+                        <input type="text" id="editLocation">
+                    </div>
+                    <div class="form-group">
+                        <label for="editSource">Source</label>
+                        <select id="editSource">
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="GitHub">GitHub</option>
+                            <option value="Company Website">Company Website</option>
+                            <option value="Indeed">Indeed</option>
+                            <option value="Referral">Referral</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editStatus">Status</label>
+                        <select id="editStatus">
+                            <option value="Applied">Applied</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Interview Scheduled">Interview Scheduled</option>
+                            <option value="Interview Completed">Interview Completed</option>
+                            <option value="Offer">Offer</option>
+                            <option value="Rejected">Rejected</option>
+                            <option value="Withdrawn">Withdrawn</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editApplicationUrl">Application URL</label>
+                        <input type="url" id="editApplicationUrl">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editNotes">Notes</label>
+                    <textarea id="editNotes" rows="3"></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
