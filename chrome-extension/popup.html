@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 350px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f9fafb;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .header p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: white;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 0.75rem;
+            background: #f3f4f6;
+            border-radius: 6px;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4f46e5;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+
+        .content {
+            padding: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.75rem;
+        }
+
+        .application-item {
+            background: white;
+            padding: 0.75rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            border-left: 3px solid #4f46e5;
+        }
+
+        .app-company {
+            font-weight: 600;
+            color: #111827;
+            font-size: 0.9rem;
+        }
+
+        .app-position {
+            color: #6b7280;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
+
+        .app-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .app-source {
+            color: #4f46e5;
+            font-weight: 500;
+        }
+
+        .app-date {
+            color: #9ca3af;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .no-applications {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: #9ca3af;
+        }
+
+        .actions {
+            padding: 1rem;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #4338ca;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .manual-add {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 0.75rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-bottom: 0.25rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4f46e5;
+        }
+
+        .toggle-form {
+            font-size: 0.85rem;
+            color: #4f46e5;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-bottom: 0.75rem;
+            display: inline-block;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Job Tracker</h1>
+        <p>Auto-tracking your applications</p>
+    </div>
+
+    <div class="stats">
+        <div class="stat-box">
+            <div class="stat-number" id="totalApps">0</div>
+            <div class="stat-label">Total Apps</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" id="todayApps">0</div>
+            <div class="stat-label">Today</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" id="weekApps">0</div>
+            <div class="stat-label">This Week</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" id="autoTracked">0</div>
+            <div class="stat-label">Auto-tracked</div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="section-title">Recent Applications</div>
+
+        <a class="toggle-form" id="toggleForm">+ Add Application Manually</a>
+
+        <div class="manual-add hidden" id="manualForm">
+            <div class="form-group">
+                <label>Company *</label>
+                <input type="text" id="company" required>
+            </div>
+            <div class="form-group">
+                <label>Position *</label>
+                <input type="text" id="position" required>
+            </div>
+            <button class="btn btn-primary" id="addManual">Add Application</button>
+        </div>
+
+        <div id="applicationsList">
+            <div class="no-applications">No applications tracked yet.</div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="btn btn-primary" id="openTracker">Open Full Tracker</button>
+        <button class="btn btn-secondary" id="exportData">Export to CSV</button>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
