@@ -427,3 +427,14 @@ textarea {
         gap: 1rem;
     }
 }
+
+/* Dark mode support - Coming soon */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1a1a1a;
+        --card-bg: #2d2d2d;
+        --text-primary: #ffffff;
+        --text-secondary: #a0a0a0;
+        --border-color: #404040;
+    }
+}
