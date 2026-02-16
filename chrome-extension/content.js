@@ -17,6 +17,8 @@ class JobApplicationDetector {
         if (hostname.includes('lever.co')) return 'lever';
         if (hostname.includes('workable.com')) return 'workable';
         if (hostname.includes('smartrecruiters.com')) return 'smartrecruiters';
+        if (hostname.includes('ziprecruiter.com')) return 'ziprecruiter';
+        if (hostname.includes('dice.com')) return 'dice';
 
         return 'unknown';
     }
@@ -339,3 +341,45 @@ class JobApplicationDetector {
 
 // Initialize the detector
 new JobApplicationDetector();
+
+    extractZipRecruiterJob() {
+        try {
+            const company = document.querySelector('.job_header_company a')?.textContent.trim();
+            const position = document.querySelector('h1.job_title')?.textContent.trim();
+            const location = document.querySelector('.location')?.textContent.trim();
+
+            if (company && position) {
+                return {
+                    company,
+                    position,
+                    location: location || '',
+                    source: 'ZipRecruiter',
+                    applicationUrl: window.location.href.split('?')[0]
+                };
+            }
+        } catch (error) {
+            console.error('[Job Tracker] Error extracting ZipRecruiter job:', error);
+        }
+        return null;
+    }
+
+    extractDiceJob() {
+        try {
+            const company = document.querySelector('.employer')?.textContent.trim();
+            const position = document.querySelector('h1')?.textContent.trim();
+            const location = document.querySelector('.location')?.textContent.trim();
+
+            if (company && position) {
+                return {
+                    company,
+                    position,
+                    location: location || '',
+                    source: 'Dice',
+                    applicationUrl: window.location.href.split('?')[0]
+                };
+            }
+        } catch (error) {
+            console.error('[Job Tracker] Error extracting Dice job:', error);
+        }
+        return null;
+    }
