@@ -16,7 +16,9 @@
     "https://*.greenhouse.io/*",
     "https://*.lever.co/*",
     "https://*.workable.com/*",
-    "https://*.smartrecruiters.com/*"
+    "https://*.smartrecruiters.com/*",
+    "https://*.ziprecruiter.com/*",
+    "https://*.dice.com/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -31,7 +33,9 @@
         "https://*.greenhouse.io/*",
         "https://*.lever.co/*",
         "https://*.workable.com/*",
-        "https://*.smartrecruiters.com/*"
+        "https://*.smartrecruiters.com/*",
+        "https://*.ziprecruiter.com/*",
+        "https://*.dice.com/*"
       ],
       "js": ["content.js"],
       "run_at": "document_idle"
