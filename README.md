@@ -398,3 +398,11 @@ If this project helped you, consider giving it a ⭐! It helps others discover t
 ---
 
 **Good luck with your job search! You've got this.** 🚀
+
+## Recent Updates
+
+### February 2026
+- Added ZipRecruiter support
+- Added Dice.com detection
+- Dark mode foundation
+
