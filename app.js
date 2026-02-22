@@ -333,3 +333,19 @@ let tracker;
 document.addEventListener('DOMContentLoaded', () => {
     tracker = new JobApplicationTracker();
 });
+
+    // Add keyboard shortcuts for power users
+    initKeyboardShortcuts() {
+        document.addEventListener('keydown', (e) => {
+            // Cmd/Ctrl + K to focus search
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('searchInput')?.focus();
+            }
+            // Cmd/Ctrl + N for new application
+            if ((e.metaKey || e.ctrlKey) && e.key === 'n') {
+                e.preventDefault();
+                document.getElementById('company')?.focus();
+            }
+        });
+    }
