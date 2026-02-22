@@ -438,3 +438,18 @@ textarea {
         --border-color: #404040;
     }
 }
+
+/* Improved mobile responsiveness */
+@media (max-width: 360px) {
+    .container {
+        padding: 0.5rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .application-card {
+        padding: 1rem;
+    }
+}
