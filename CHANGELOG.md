@@ -27,3 +27,17 @@ All notable changes to this project will be documented in this file.
 
 See [README.md](README.md) roadmap section for planned features.
 
+
+## [1.1.0] - 2026-02-22
+
+### Added
+- ZipRecruiter platform support
+- Dice.com platform support
+- Keyboard shortcuts (Cmd+K for search, Cmd+N for new)
+- FAQ documentation
+- Dark mode CSS foundation
+
+### Improved
+- Mobile responsiveness for small screens
+- README documentation with recent updates
+
