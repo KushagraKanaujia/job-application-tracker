@@ -169,3 +169,26 @@ chrome.runtime.onInstalled.addListener(() => {
     console.log('Job Application Tracker extension installed');
     syncApplications();
 });
+
+// Performance optimization: Cache recent applications
+let applicationCache = null;
+let cacheTimestamp = 0;
+const CACHE_DURATION = 30000; // 30 seconds
+
+async function getCachedApplications() {
+    const now = Date.now();
+    if (applicationCache && (now - cacheTimestamp) < CACHE_DURATION) {
+        return applicationCache;
+    }
+    
+    const result = await chrome.storage.local.get(['applications']);
+    applicationCache = result.applications || [];
+    cacheTimestamp = now;
+    return applicationCache;
+}
+
+// Clear cache when applications are modified
+function clearCache() {
+    applicationCache = null;
+    cacheTimestamp = 0;
+}
