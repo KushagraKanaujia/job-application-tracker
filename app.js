@@ -349,3 +349,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Add sorting functionality
+    sortApplications(field, direction = 'desc') {
+        this.applications.sort((a, b) => {
+            let aVal = a[field];
+            let bVal = b[field];
+            
+            if (field === 'dateApplied' || field === 'lastUpdated') {
+                aVal = new Date(aVal);
+                bVal = new Date(bVal);
+            }
+            
+            if (direction === 'asc') {
+                return aVal > bVal ? 1 : -1;
+            }
+            return aVal < bVal ? 1 : -1;
+        });
+        
+        this.renderApplications();
+    }
