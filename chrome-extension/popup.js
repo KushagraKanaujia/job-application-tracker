@@ -214,3 +214,14 @@ function showNotification(message) {
     // Could add a toast notification here
     console.log(message);
 }
+
+// Add statistics breakdown
+function renderDetailedStats(applications) {
+    const statusBreakdown = applications.reduce((acc, app) => {
+        acc[app.status] = (acc[app.status] || 0) + 1;
+        return acc;
+    }, {});
+    
+    console.log('Status breakdown:', statusBreakdown);
+    // Will be used for future stats visualizations
+}
