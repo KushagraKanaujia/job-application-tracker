@@ -406,3 +406,14 @@ If this project helped you, consider giving it a ⭐! It helps others discover t
 - Added Dice.com detection
 - Dark mode foundation
 
+
+## Community
+
+Join our growing community of job seekers:
+
+- Star the repo to show support
+- Share with friends who are job hunting
+- Contribute improvements and new platforms
+- Report bugs and request features
+
+Together we're making job hunting less chaotic!
