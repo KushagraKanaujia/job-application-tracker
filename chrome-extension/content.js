@@ -383,3 +383,18 @@ new JobApplicationDetector();
         }
         return null;
     }
+
+    // Improved error handling with retry logic
+    retryExtraction(extractFunc, retries = 3) {
+        return new Promise((resolve) => {
+            const attempt = (n) => {
+                const result = extractFunc();
+                if (result || n === 0) {
+                    resolve(result);
+                } else {
+                    setTimeout(() => attempt(n - 1), 500);
+                }
+            };
+            attempt(retries);
+        });
+    }
