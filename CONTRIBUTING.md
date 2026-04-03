@@ -440,3 +440,36 @@ All contributors will be acknowledged in the README. Thank you for making job hu
 ## License
 
 By contributing, you agree that your contributions will be licensed under the MIT License.
+
+## Development Setup
+
+### Local Development
+
+1. Clone the repository
+2. Make changes to the code
+3. Load extension in Chrome (chrome://extensions → Load unpacked)
+4. Test your changes
+5. Reload extension to see updates
+
+### Testing Checklist
+
+Before submitting a PR:
+
+- [ ] Extension loads without errors
+- [ ] No console errors in browser
+- [ ] Feature works as expected
+- [ ] Doesn't break existing functionality
+- [ ] Code is well-commented
+- [ ] Documentation updated if needed
+
+### Commit Messages
+
+Use clear, descriptive commit messages:
+
+- ✅ "Add Indeed.com application detection"
+- ✅ "Fix LinkedIn selector for job title"
+- ✅ "Improve error handling in background.js"
+- ❌ "fix bug"
+- ❌ "update"
+- ❌ "changes"
+
