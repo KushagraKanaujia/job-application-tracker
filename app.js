@@ -369,3 +369,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         this.renderApplications();
     }
+
+    // Add data validation before saving
+    validateApplication(app) {
+        if (!app.company || !app.position) {
+            return { valid: false, error: 'Company and position are required' };
+        }
+        if (app.company.length > 200 || app.position.length > 200) {
+            return { valid: false, error: 'Company or position name too long' };
+        }
+        return { valid: true };
+    }
