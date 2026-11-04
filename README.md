@@ -3,7 +3,7 @@
 > A free Chrome extension that records each job you apply to (LinkedIn, Indeed, GitHub job lists, Greenhouse, Lever and more) and a private dashboard to track status, interviews and resumes. All data stays on your device.
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-open-6366f1?style=for-the-badge&logo=netlify&logoColor=white)](https://kush-job-application-tracker.netlify.app/app/)
-[![Download Extension](https://img.shields.io/badge/Chrome_Extension-download_.zip-10b981?style=for-the-badge&logo=googlechrome&logoColor=white)](https://github.com/KushagraKanaujia/job-application-tracker/releases/latest)
+[![Download Extension](https://img.shields.io/badge/Chrome_Extension-download_.zip-10b981?style=for-the-badge&logo=googlechrome&logoColor=white)](https://github.com/KushagraKanaujia/job-application-tracker/releases/tag/v1.1.0)
 [![Landing Page](https://img.shields.io/badge/Website-visit-8b5cf6?style=for-the-badge)](https://kush-job-application-tracker.netlify.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
@@ -14,7 +14,7 @@
 | What | Link | Needs |
 |---|---|---|
 | **Live dashboard demo** | [kush-job-application-tracker.netlify.app/app](https://kush-job-application-tracker.netlify.app/app/) | Nothing. Opens with sample data (fictional companies); what you add is saved only in your browser. |
-| **Install the extension** | [Latest release (.zip)](https://github.com/KushagraKanaujia/job-application-tracker/releases/latest) or [direct download](https://kush-job-application-tracker.netlify.app/download/job-application-tracker-extension.zip) | Chrome (or any Chromium browser). |
+| **Install the extension** | [Latest release (.zip)](https://github.com/KushagraKanaujia/job-application-tracker/releases/tag/v1.1.0) or [direct download](https://kush-job-application-tracker.netlify.app/download/job-application-tracker-extension.zip) | Chrome (or any Chromium browser). |
 | **Project website** | [kush-job-application-tracker.netlify.app](https://kush-job-application-tracker.netlify.app/) | Nothing. |
 
 ### Install the extension in 3 steps
