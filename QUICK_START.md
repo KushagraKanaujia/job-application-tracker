@@ -5,7 +5,7 @@
 You now have a complete job application tracking system with two components:
 
 ### 1. Web Application (Already Working)
-- Location: `~/job-application-tracker/index.html`
+- Location: inside the extension (popup -> "Open Full Tracker"), or the live demo at https://kush-job-application-tracker.netlify.app/app/
 - Features: Track, search, filter, export applications
 - Storage: Browser localStorage
 
@@ -26,7 +26,7 @@ You now have a complete job application tracking system with two components:
 
 3. **Load the Extension**
    - Click the "Load unpacked" button
-   - Navigate to: `/Users/kush/job-application-tracker/chrome-extension/`
+   - Navigate to: the `chrome-extension/` folder of your clone (or the unzipped release)
    - Click "Select"
 
 4. **Verify Installation**
@@ -45,7 +45,7 @@ You now have a complete job application tracking system with two components:
 
 3. **View Full Tracker**
    - Click "Open Full Tracker" in the extension popup
-   - Or run: `open ~/job-application-tracker/index.html`
+   - Or run: `click "Open Full Tracker" in the extension popup`
 
 ## How to Use Daily
 
@@ -58,7 +58,7 @@ You now have a complete job application tracking system with two components:
 
 ### Managing Applications
 
-1. **View All**: Open the full tracker (`open ~/job-application-tracker/index.html`)
+1. **View All**: Open the full tracker (`click "Open Full Tracker" in the extension popup`)
 2. **Update Status**: Edit applications as you get interviews/offers
 3. **Search**: Use filters to find specific applications
 4. **Export**: Download CSV for spreadsheets
@@ -120,13 +120,13 @@ If the extension misses an application:
 
 ```bash
 # Open the full tracker
-open ~/job-application-tracker/index.html
+# Click "Open Full Tracker" in the extension popup
 
 # Open Chrome extensions (to install)
 # Go to: chrome://extensions/
 
 # Extension location
-# /Users/kush/job-application-tracker/chrome-extension/
+# <your clone>/chrome-extension/
 ```
 
 ## Troubleshooting

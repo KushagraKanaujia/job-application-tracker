@@ -2,6 +2,8 @@
 
 # Helper script to open Chrome extensions page
 
+EXT_DIR="$(cd "$(dirname "$0")" && pwd)/chrome-extension"
+
 echo "=========================================="
 echo "Job Application Tracker - Extension Setup"
 echo "=========================================="
@@ -19,17 +21,17 @@ echo ""
 echo "Next steps:"
 echo "1. Enable 'Developer mode' (toggle in top-right)"
 echo "2. Click 'Load unpacked'"
-echo "3. Select folder: $HOME/job-application-tracker/chrome-extension/"
+echo "3. Select folder: $EXT_DIR"
 echo "4. Click 'Select' to install"
 echo ""
 echo "Extension location:"
-echo "  $HOME/job-application-tracker/chrome-extension/"
+echo "  $EXT_DIR"
 echo ""
 echo "Full guide: See EXTENSION_INSTALL.md or QUICK_START.md"
 echo ""
 
 # Try to open the folder in Finder for easy access
-open "$HOME/job-application-tracker/chrome-extension/"
+open "$EXT_DIR"
 
 echo "✓ Extension folder opened in Finder"
 echo ""

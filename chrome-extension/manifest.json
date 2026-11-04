@@ -1,11 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Job Application Auto-Tracker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Automatically track job applications from LinkedIn, GitHub, Indeed, and other job sites",
   "permissions": [
     "storage",
-    "tabs",
     "notifications"
   ],
   "host_permissions": [
@@ -37,7 +36,9 @@
         "https://*.ziprecruiter.com/*",
         "https://*.dice.com/*"
       ],
-      "js": ["content.js"],
+      "js": [
+        "content.js"
+      ],
       "run_at": "document_idle"
     }
   ],
@@ -53,5 +54,6 @@
     "16": "icon16.png",
     "48": "icon48.png",
     "128": "icon128.png"
-  }
+  },
+  "homepage_url": "https://github.com/KushagraKanaujia/job-application-tracker"
 }

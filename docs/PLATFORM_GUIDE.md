@@ -328,6 +328,6 @@ Based on user reports, here's what's most commonly used:
 
 ## Getting Help
 
-- **Bug in detection:** [Report a bug](https://github.com/yourusername/job-application-tracker/issues/new?template=bug_report.md)
-- **Request new platform:** [Platform request](https://github.com/yourusername/job-application-tracker/issues/new?template=platform_request.md)
-- **General questions:** [Start a discussion](https://github.com/yourusername/job-application-tracker/discussions)
+- **Bug in detection:** [Report a bug](https://github.com/KushagraKanaujia/job-application-tracker/issues/new?template=bug_report.md)
+- **Request new platform:** [Platform request](https://github.com/KushagraKanaujia/job-application-tracker/issues/new?template=platform_request.md)
+- **General questions:** [Start a discussion](https://github.com/KushagraKanaujia/job-application-tracker/discussions)

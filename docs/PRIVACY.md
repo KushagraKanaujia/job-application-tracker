@@ -36,7 +36,7 @@ We only use these permissions for the stated functionality. Nothing more.
 All code is open source and auditable. You can review exactly what the extension does:
 
 - [Extension Source Code](../chrome-extension/)
-- [Dashboard Source Code](../app.js)
+- [Dashboard Source Code](../chrome-extension/dashboard/app.js)
 
 ## Your Control
 

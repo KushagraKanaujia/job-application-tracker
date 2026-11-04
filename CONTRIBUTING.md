@@ -26,7 +26,7 @@ Job sites change their HTML structure frequently. If a detector breaks:
 
 ### 3. Bug Fixes
 
-Found a bug? Fix it and submit a PR! Check the [Issues](https://github.com/yourusername/job-application-tracker/issues) page for known bugs.
+Found a bug? Fix it and submit a PR! Check the [Issues](https://github.com/KushagraKanaujia/job-application-tracker/issues) page for known bugs.
 
 ### 4. New Features
 
@@ -425,8 +425,8 @@ We're building a tool to help job seekers. Be kind, respectful, and supportive.
 
 ## Questions?
 
-- **General questions:** Open a [Discussion](https://github.com/yourusername/job-application-tracker/discussions)
-- **Bug reports:** Open an [Issue](https://github.com/yourusername/job-application-tracker/issues)
+- **General questions:** Open a [Discussion](https://github.com/KushagraKanaujia/job-application-tracker/discussions)
+- **Bug reports:** Open an [Issue](https://github.com/KushagraKanaujia/job-application-tracker/issues)
 - **Want to chat:** Comment on existing issues
 
 ---

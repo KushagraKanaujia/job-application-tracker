@@ -17,7 +17,7 @@ This guide will help you install the Job Application Auto-Tracker extension in G
 ### 3. Load the Extension
 
 1. Click the **Load unpacked** button (appears after enabling Developer mode)
-2. Navigate to: `/Users/kush/job-application-tracker/chrome-extension/`
+2. Navigate to: the `chrome-extension/` folder of your clone (or the unzipped release)
 3. Click **Select** to load the extension
 
 ### 4. Verify Installation
@@ -145,8 +145,8 @@ Your data will remain in the local tracker application.
 
 ## Quick Reference
 
-- **Extension Location**: `/Users/kush/job-application-tracker/chrome-extension/`
-- **Full Tracker**: `/Users/kush/job-application-tracker/index.html`
+- **Extension Location**: the `chrome-extension/` folder of your clone (or the unzipped release)
+- **Full Tracker**: click "Open Full Tracker" in the extension popup
 - **Chrome Extensions**: `chrome://extensions/`
 
 ## Need Help?

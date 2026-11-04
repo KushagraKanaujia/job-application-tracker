@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Hunt Pro - Job Application Tracker</title>
+    <meta name="description" content="Track every job application in one private dashboard. Data stays in your browser.">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="demo-banner" id="demoBanner" hidden>
+        <span id="demoBannerText"></span>
+        <button type="button" class="link-btn" data-action="load-sample">Load sample data</button>
+        <button type="button" class="link-btn" data-action="clear-sample" hidden>Remove sample data</button>
+        <a class="link-btn" href="https://github.com/KushagraKanaujia/job-application-tracker#try-it-in-one-click" target="_blank" rel="noopener">Get the extension</a>
+    </div>
+
+    <div class="layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                    <rect width="40" height="40" rx="8" fill="url(#gradient1)"/>
+                    <path d="M12 20L18 26L28 14" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="gradient1" x1="0" y1="0" x2="40" y2="40">
+                            <stop offset="0%" stop-color="#6366f1"/>
+                            <stop offset="100%" stop-color="#8b5cf6"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div>
+                    <h1>Job Hunt Pro</h1>
+                    <p>Your Career Hub</p>
+                </div>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Views">
+            <a href="#dashboard" class="nav-item active" data-view="dashboard">
+                <span class="nav-icon">📊</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="#applications" class="nav-item" data-view="applications">
+                <span class="nav-icon">📝</span>
+                <span>Applications</span>
+                <span class="nav-badge" id="appCount">0</span>
+            </a>
+            <a href="#calendar" class="nav-item" data-view="calendar">
+                <span class="nav-icon">📅</span>
+                <span>Interview Calendar</span>
+            </a>
+            <a href="#resume" class="nav-item" data-view="resume">
+                <span class="nav-icon">📄</span>
+                <span>Resume Vault</span>
+            </a>
+            <a href="#analytics" class="nav-item" data-view="analytics">
+                <span class="nav-icon">📈</span>
+                <span>Analytics</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="storage-note" id="storageNote"></div>
+            <button type="button" class="btn-export" data-action="export">
+                <span>💾</span> Export CSV
+            </button>
+            <button type="button" class="btn-theme" id="themeToggle">
+                <span class="theme-icon">🌙</span>
+                <span class="theme-text">Dark Mode</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="top-bar">
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="search" id="globalSearch" placeholder="Search companies, positions, notes..." aria-label="Search applications" />
+                <kbd>⌘K</kbd>
+            </div>
+            <div class="top-bar-actions">
+                <button type="button" class="btn-primary" data-action="quick-add">
+                    <span>➕</span> Quick Add
+                </button>
+            </div>
+        </header>
+
+        <!-- Dashboard View -->
+        <section class="view active" id="dashboardView">
+            <div class="view-header">
+                <h2>Dashboard Overview</h2>
+                <p>Track your job search progress at a glance</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card stat-primary">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="totalApps">0</div>
+                        <div class="stat-label">Total Applications</div>
+                    </div>
+                    <div class="stat-trend" id="totalTrend"></div>
+                </div>
+                <div class="stat-card stat-warning">
+                    <div class="stat-icon">⏳</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="pendingApps">0</div>
+                        <div class="stat-label">Pending Response</div>
+                    </div>
+                    <div class="stat-trend" id="pendingTrend"></div>
+                </div>
+                <div class="stat-card stat-success">
+                    <div class="stat-icon">💼</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="interviewApps">0</div>
+                        <div class="stat-label">In Interviews</div>
+                    </div>
+                    <div class="stat-trend" id="interviewTrend"></div>
+                </div>
+                <div class="stat-card stat-info">
+                    <div class="stat-icon">✨</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="offerApps">0</div>
+                        <div class="stat-label">Offers Received</div>
+                    </div>
+                    <div class="stat-trend" id="offerTrend"></div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <div class="card quick-actions-card">
+                    <h3>Quick Actions</h3>
+                    <div class="quick-actions-grid">
+                        <button type="button" class="quick-action" data-action="quick-add">
+                            <span class="qa-icon">➕</span>
+                            <span class="qa-label">Add Application</span>
+                        </button>
+                        <button type="button" class="quick-action" data-goto="resume">
+                            <span class="qa-icon">📄</span>
+                            <span class="qa-label">Upload Resume</span>
+                        </button>
+                        <button type="button" class="quick-action" data-goto="calendar">
+                            <span class="qa-icon">📅</span>
+                            <span class="qa-label">Interviews</span>
+                        </button>
+                        <button type="button" class="quick-action" data-action="export">
+                            <span class="qa-icon">💾</span>
+                            <span class="qa-label">Export CSV</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card recent-activity-card">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-list" id="recentActivity"></div>
+                </div>
+            </div>
+
+            <div class="card timeline-card">
+                <h3>Application Timeline <small>last 14 days</small></h3>
+                <div class="timeline" id="timeline"></div>
+            </div>
+        </section>
+
+        <!-- Applications View -->
+        <section class="view" id="applicationsView">
+            <div class="view-header">
+                <div>
+                    <h2>All Applications</h2>
+                    <p id="resultCount"></p>
+                </div>
+                <div class="view-actions">
+                    <select id="filterStatus" class="filter-select" aria-label="Filter by status">
+                        <option value="all">All Statuses</option>
+                    </select>
+                    <select id="filterSource" class="filter-select" aria-label="Filter by source">
+                        <option value="all">All Sources</option>
+                    </select>
+                    <select id="sortBy" class="filter-select" aria-label="Sort">
+                        <option value="date-desc">Newest First</option>
+                        <option value="date-asc">Oldest First</option>
+                        <option value="company">Company A-Z</option>
+                        <option value="status">By Status</option>
+                    </select>
+                </div>
+            </div>
+            <div class="applications-grid" id="applicationsList"></div>
+        </section>
+
+        <!-- Calendar View -->
+        <section class="view" id="calendarView">
+            <div class="view-header">
+                <div>
+                    <h2>Interview Calendar</h2>
+                    <p>Set an interview date on any application to see it here.</p>
+                </div>
+            </div>
+            <div class="calendar-container" id="calendarList"></div>
+        </section>
+
+        <!-- Resume Vault View -->
+        <section class="view" id="resumeView">
+            <div class="view-header">
+                <div>
+                    <h2>Resume Vault</h2>
+                    <p>Keep each version of your resume. Files are stored in this browser (IndexedDB) and never uploaded.</p>
+                </div>
+            </div>
+            <div class="resume-grid">
+                <label class="resume-upload-card upload-btn" for="resumeUpload">
+                    <input type="file" id="resumeUpload" accept=".pdf,.doc,.docx" hidden>
+                    <span class="upload-icon">📤</span>
+                    <h3>Upload Resume</h3>
+                    <p>PDF, DOC, or DOCX (max 5 MB)</p>
+                </label>
+                <div id="resumeList" class="resume-list"></div>
+            </div>
+        </section>
+
+        <!-- Analytics View -->
+        <section class="view" id="analyticsView">
+            <div class="view-header">
+                <div>
+                    <h2>Analytics &amp; Insights</h2>
+                    <p>Understand your job search patterns</p>
+                </div>
+            </div>
+            <div class="analytics-grid">
+                <div class="card chart-card">
+                    <h3>Status Breakdown</h3>
+                    <div class="chart-box"><canvas id="statusChart" aria-label="Applications by status"></canvas></div>
+                </div>
+                <div class="card chart-card">
+                    <h3>Applications per Week</h3>
+                    <div class="chart-box"><canvas id="timeChart" aria-label="Applications per week"></canvas></div>
+                </div>
+                <div class="card chart-card">
+                    <h3>By Source</h3>
+                    <div class="chart-box"><canvas id="sourceChart" aria-label="Applications by source"></canvas></div>
+                </div>
+                <div class="card chart-card">
+                    <h3>Funnel</h3>
+                    <div id="funnel" class="funnel"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    </div>
+
+    <!-- Add / Edit Modal -->
+    <div class="modal" id="appModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Application</h2>
+                <button type="button" class="modal-close" data-action="close-modal" aria-label="Close">&times;</button>
+            </div>
+            <form id="applicationForm">
+                <input type="hidden" id="editId">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="company">Company Name *</label>
+                        <input type="text" id="company" required maxlength="200" placeholder="e.g., Acme Corp">
+                    </div>
+                    <div class="form-group">
+                        <label for="position">Position Title *</label>
+                        <input type="text" id="position" required maxlength="200" placeholder="e.g., Software Engineer">
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" placeholder="e.g., San Francisco, CA or Remote">
+                    </div>
+                    <div class="form-group">
+                        <label for="source">Application Source</label>
+                        <select id="source"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Current Status</label>
+                        <select id="status"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="salary">Salary Range</label>
+                        <input type="text" id="salary" placeholder="e.g., $120k - $150k">
+                    </div>
+                    <div class="form-group">
+                        <label for="dateApplied">Date Applied</label>
+                        <input type="date" id="dateApplied">
+                    </div>
+                    <div class="form-group">
+                        <label for="interviewDate">Interview Date</label>
+                        <input type="datetime-local" id="interviewDate">
+                    </div>
+                    <div class="form-group form-full-width">
+                        <label for="applicationUrl">Job Posting URL</label>
+                        <input type="url" id="applicationUrl" placeholder="https://...">
+                    </div>
+                    <div class="form-group form-full-width">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" rows="3" placeholder="Recruiter, interview details, follow-ups..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" data-action="close-modal">Cancel</button>
+                    <button type="submit" class="btn-primary" id="submitBtn">Add Application</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="vendor/chart.umd.min.js"></script>
+    <script src="sample-data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

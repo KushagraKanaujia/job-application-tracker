@@ -19,8 +19,8 @@ function setupEventListeners() {
 
     // Open full tracker
     document.getElementById('openTracker').addEventListener('click', () => {
-        const trackerPath = 'file:///Users/kush/job-application-tracker/index.html';
-        chrome.tabs.create({ url: trackerPath });
+        // The full dashboard ships inside the extension, so it reads the same chrome.storage data
+        chrome.tabs.create({ url: chrome.runtime.getURL('dashboard/index.html') });
     });
 
     // Export data
@@ -85,7 +85,7 @@ function renderApplications(applications) {
             <div class="app-company">${escapeHtml(app.company)}</div>
             <div class="app-position">${escapeHtml(app.position)}</div>
             <div class="app-meta">
-                <span class="app-source">${app.source}</span>
+                <span class="app-source">${escapeHtml(app.source)}</span>
                 <span class="app-date">${formatDate(app.dateApplied)}</span>
             </div>
         </div>
@@ -165,12 +165,14 @@ async function exportToCSV() {
         const blob = new Blob([csvContent], { type: 'text/csv' });
         const url = URL.createObjectURL(blob);
 
-        // Download the file
-        chrome.downloads.download({
-            url: url,
-            filename: `job-applications-${new Date().toISOString().split('T')[0]}.csv`,
-            saveAs: true
-        });
+        // Download via a temporary link (no extra "downloads" permission needed)
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `job-applications-${new Date().toISOString().split('T')[0]}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
 
         showNotification('Export started!');
     } catch (error) {

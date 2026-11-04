@@ -51,6 +51,7 @@ class JobApplicationDetector {
 
     handleFormSubmit(event) {
         const form = event.target;
+        if (this.currentSite === 'github') return; // GitHub is handled via Apply-link clicks only
 
         // Check if this looks like a job application form
         if (this.isApplicationForm(form)) {
@@ -63,6 +64,22 @@ class JobApplicationDetector {
 
     handleClick(event) {
         const target = event.target;
+
+        // GitHub job lists (e.g. SimplifyJobs): "Apply" is a link/image inside a table row
+        if (this.currentSite === 'github') {
+            const link = target.closest('a');
+            const row = link && link.closest('tr');
+            if (row) {
+                const img = link.querySelector('img');
+                const label = (link.textContent + ' ' + (img ? img.alt : '')).toLowerCase();
+                if (label.includes('apply')) {
+                    const jobInfo = this.extractGitHubRow(row, link.href);
+                    if (jobInfo) this.saveApplication(jobInfo);
+                }
+            }
+            return;
+        }
+
         const button = target.closest('button');
 
         if (!button) return;
@@ -96,7 +113,7 @@ class JobApplicationDetector {
 
     isApplicationForm(form) {
         const formText = form.textContent.toLowerCase();
-        const formAction = form.action.toLowerCase();
+        const formAction = String(form.getAttribute('action') || '').toLowerCase();
 
         return formText.includes('apply') ||
                formText.includes('submit application') ||
@@ -128,6 +145,10 @@ class JobApplicationDetector {
                 return this.extractGreenhouseJob();
             case 'lever':
                 return this.extractLeverJob();
+            case 'ziprecruiter':
+                return this.extractZipRecruiterJob();
+            case 'dice':
+                return this.extractDiceJob();
             default:
                 return this.extractGenericJob();
         }
@@ -170,6 +191,29 @@ class JobApplicationDetector {
             console.error('[Job Tracker] Error extracting LinkedIn job:', error);
         }
         return null;
+    }
+
+    extractGitHubRow(row, href) {
+        const cells = Array.from(row.querySelectorAll('td')).map((td) => td.textContent.trim());
+        if (cells.length < 2) return null;
+        // SimplifyJobs-style tables: Company | Role | Location | Application | Age
+        let company = cells[0];
+        if (!company || company === '↳') {
+            // "↳" rows reuse the company from the nearest row above
+            let prev = row.previousElementSibling;
+            while (prev && (!company || company === '↳')) {
+                company = prev.querySelector('td')?.textContent.trim();
+                prev = prev.previousElementSibling;
+            }
+        }
+        if (!company || !cells[1]) return null;
+        return {
+            company,
+            position: cells[1],
+            location: cells[2] || '',
+            source: 'GitHub',
+            applicationUrl: href || window.location.href
+        };
     }
 
     extractGitHubJob() {
@@ -324,10 +368,14 @@ class JobApplicationDetector {
             font-size: 14px;
             max-width: 300px;
         `;
-        notification.innerHTML = `
-            <div style="font-weight: bold; margin-bottom: 4px;">${title}</div>
-            <div style="font-size: 13px; opacity: 0.9;">${message}</div>
-        `;
+        // Build with textContent so page-derived text is never parsed as HTML
+        const titleEl = document.createElement('div');
+        titleEl.style.cssText = 'font-weight: bold; margin-bottom: 4px;';
+        titleEl.textContent = title;
+        const messageEl = document.createElement('div');
+        messageEl.style.cssText = 'font-size: 13px; opacity: 0.9;';
+        messageEl.textContent = message;
+        notification.append(titleEl, messageEl);
 
         document.body.appendChild(notification);
 
@@ -337,10 +385,6 @@ class JobApplicationDetector {
             setTimeout(() => notification.remove(), 300);
         }, 4000);
     }
-}
-
-// Initialize the detector
-new JobApplicationDetector();
 
     extractZipRecruiterJob() {
         try {
@@ -398,3 +442,7 @@ new JobApplicationDetector();
             attempt(retries);
         });
     }
+}
+
+// Initialize the detector
+new JobApplicationDetector();

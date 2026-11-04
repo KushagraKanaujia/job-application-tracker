@@ -88,12 +88,12 @@ async function saveApplication(jobInfo) {
             position: jobInfo.position,
             location: jobInfo.location || '',
             source: jobInfo.source || 'Other',
-            status: 'Applied',
+            status: jobInfo.status || 'Applied',
             applicationUrl: jobInfo.applicationUrl || '',
-            notes: 'Auto-tracked from browser',
+            notes: jobInfo.notes !== undefined ? jobInfo.notes : 'Auto-tracked from browser',
             dateApplied: new Date().toISOString(),
             lastUpdated: new Date().toISOString(),
-            autoTracked: true
+            autoTracked: jobInfo.autoTracked !== false
         };
 
         // Add to beginning of array
@@ -140,34 +140,11 @@ async function updateApplication(id, data) {
     }
 }
 
-// Sync applications between extension and local tracker
-// This allows the web app to access the same data
-async function syncApplications() {
-    try {
-        const result = await chrome.storage.local.get(['applications']);
-        const applications = result.applications || [];
-
-        // Store in a way that can be accessed by the web app
-        // (This requires the web app to be updated to read from Chrome storage)
-        console.log('Applications synced:', applications.length);
-    } catch (error) {
-        console.error('Error syncing applications:', error);
+// Open the dashboard once on first install so new users see where their data lives
+chrome.runtime.onInstalled.addListener((details) => {
+    if (details.reason === 'install') {
+        chrome.tabs.create({ url: chrome.runtime.getURL('dashboard/index.html') });
     }
-}
-
-// Run sync periodically
-chrome.alarms.create('syncApplications', { periodInMinutes: 5 });
-
-chrome.alarms.onAlarm.addListener((alarm) => {
-    if (alarm.name === 'syncApplications') {
-        syncApplications();
-    }
-});
-
-// Initial sync on install
-chrome.runtime.onInstalled.addListener(() => {
-    console.log('Job Application Tracker extension installed');
-    syncApplications();
 });
 
 // Performance optimization: Cache recent applications
